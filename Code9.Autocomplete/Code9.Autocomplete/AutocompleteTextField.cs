@@ -6,6 +6,9 @@ using MonoTouch.CoreGraphics;
 
 namespace Code9
 {
+    /// <summary>
+    /// Autocomplete data source
+    /// </summary>
     public interface  IAutocompleteDataSource
     {
         string CompletionForPrefix(string prefix);
@@ -13,10 +16,11 @@ namespace Code9
 
     public class AutocompleteTextField: UITextField
     {
-
+    
         public event EventHandler DidAutoComplete = delegate {};
 
         private const int kHTAutoCompleteButtonWidth = 30;
+        private const string UITextFieldTextDidChangeNotification = "UITextFieldTextDidChangeNotification";
 
         private UILabel autocompleteLabel;
         private UIButton autocompleteButton;
@@ -42,7 +46,7 @@ namespace Code9
             base.Dispose(disposing);
             if (disposing)
             {
-                NSNotificationCenter.DefaultCenter.RemoveObserver(this, "UITextFieldTextDidChangeNotification");
+                NSNotificationCenter.DefaultCenter.RemoveObserver(this, UITextFieldTextDidChangeNotification);
             }
         }
 
@@ -69,7 +73,7 @@ namespace Code9
 
             autocompleteString = string.Empty;
 
-            NSNotificationCenter.DefaultCenter.AddObserver("UITextFieldTextDidChangeNotification", OnUITextFieldTextDidChangeNotification);
+            NSNotificationCenter.DefaultCenter.AddObserver(UITextFieldTextDidChangeNotification, OnUITextFieldTextDidChangeNotification);
         }
 
         public override void LayoutSubviews()
@@ -100,7 +104,7 @@ namespace Code9
             if (this.CommitAutocompleteText())
             {
                 //Only notify if commiting autocomplete actually changed the text.
-                NSNotificationCenter.DefaultCenter.PostNotificationName("UITextFieldTextDidChangeNotification", this);
+                NSNotificationCenter.DefaultCenter.PostNotificationName(UITextFieldTextDidChangeNotification, this);
             }
 
             return base.ResignFirstResponder();
@@ -111,7 +115,7 @@ namespace Code9
         {
             autocompleteLabel.Hidden = false;
             this.CommitAutocompleteText();
-            NSNotificationCenter.DefaultCenter.PostNotificationName("UITextFieldTextDidChangeNotification", this);
+            NSNotificationCenter.DefaultCenter.PostNotificationName(UITextFieldTextDidChangeNotification, this);
         }
            
 

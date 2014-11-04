@@ -21,6 +21,7 @@ namespace Code9.Autocomplete
             AutocompleteTextField textField = new AutocompleteTextField(new RectangleF(10, 100, 300, 30));
             textField.DataSource = new DefaultDataSource();
             textField.BorderStyle = UITextBorderStyle.RoundedRect;
+            textField.ShowAutocompleteButton = true;
 
             View.Add(textField);
         }
@@ -35,7 +36,7 @@ namespace Code9.Autocomplete
         {
             if (string.IsNullOrEmpty(prefix))
             {
-                return string.Empty;
+                return domains[0];
             }
 
             string domain = domains.FirstOrDefault(x => x.StartsWith(prefix, true, System.Globalization.CultureInfo.InvariantCulture));
