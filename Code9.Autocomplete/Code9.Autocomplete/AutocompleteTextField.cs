@@ -124,9 +124,6 @@ namespace Code9
             this.autocompleteLabel.Text = autocompleteString;
             autocompleteLabel.SizeToFit();
             autocompleteLabel.Frame = this.AutoCompleteRectForBounds(this.Bounds);
-
-            //Fire the event
-            DidAutoComplete(this, EventArgs.Empty);
         }
 
         public void OnUITextFieldTextDidChangeNotification(NSNotification notification)

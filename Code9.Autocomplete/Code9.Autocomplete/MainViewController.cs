@@ -23,6 +23,18 @@ namespace Code9.Autocomplete
             textField.BorderStyle = UITextBorderStyle.RoundedRect;
             textField.ShowAutocompleteButton = true;
 
+            textField.DidAutoComplete += (s, e) => {
+                UIAlertView alert = new UIAlertView();
+                alert.Message = textField.Text;
+                alert.Show();
+            };
+
+            textField.ShouldReturn += (s) =>
+            {
+                textField.ResignFirstResponder();
+                return true;
+            };
+
             View.Add(textField);
         }
             
