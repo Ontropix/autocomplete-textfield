@@ -1,8 +1,8 @@
-﻿using System;
-using System.Drawing;
+using System;
+using CoreGraphics;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using System.Linq;
 
 namespace Code9.Autocomplete
@@ -18,7 +18,7 @@ namespace Code9.Autocomplete
         {
             base.ViewDidLoad();
 
-            AutocompleteTextField textField = new AutocompleteTextField(new RectangleF(10, 100, 300, 30));
+            AutoCompleteTextField textField = new AutoCompleteTextField(new CGRect(10, 100, 300, 30));
             textField.DataSource = new DefaultDataSource();
             textField.BorderStyle = UITextBorderStyle.RoundedRect;
             textField.ShowAutocompleteButton = true;
@@ -40,7 +40,7 @@ namespace Code9.Autocomplete
             
     }
 
-    public class DefaultDataSource: IAutocompleteDataSource 
+    public class DefaultDataSource: IAutoCompleteDataSource 
     {
         public string[] domains = new string[] {"google", "yandex", "bing"};
 
