@@ -9,12 +9,12 @@ namespace Code9
     /// <summary>
     /// Autocomplete data source
     /// </summary>
-    public interface  IAutoCompleteDataSource
+    public interface  IAutocompleteDataSource
     {
         string CompletionForPrefix(string prefix);
     }
 
-    public class AutoCompleteTextField: UITextField
+    public class AutocompleteTextField: UITextField
     {
     
         public event EventHandler DidAutoComplete = delegate {};
@@ -26,10 +26,10 @@ namespace Code9
         private UIButton autocompleteButton;
         private string autocompleteString;
 
-        public IAutoCompleteDataSource DataSource { get; set; }
+        public IAutocompleteDataSource DataSource { get; set; }
         public bool ShowAutocompleteButton { get; set; }
 
-        public AutoCompleteTextField(CGRect frame)
+        public AutocompleteTextField(CGRect frame)
             : base(frame)
         {
             Setup();
@@ -73,7 +73,7 @@ namespace Code9
 
             autocompleteString = string.Empty;
 
-			NSNotificationCenter.DefaultCenter.AddObserver((NSString)UITextFieldTextDidChangeNotification, OnUITextFieldTextDidChangeNotification);
+            NSNotificationCenter.DefaultCenter.AddObserver(UITextFieldTextDidChangeNotification, OnUITextFieldTextDidChangeNotification);
         }
 
         public override void LayoutSubviews()
@@ -231,7 +231,7 @@ namespace Code9
 
         private void UpdateAutocompleteButtonAnimated(bool animated) 
         {
-            Action action = new Action(() =>
+            NSAction action = new NSAction(() =>
             {
                     if (this.autocompleteString.Length > 0 && this.ShowAutocompleteButton) 
                     {
